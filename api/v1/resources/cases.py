@@ -18,6 +18,10 @@ case_model = namespace.model('Case', {
         readonly=True,
         description='Case country'
     ),
+    'continent': fields.String(
+        readonly=True,
+        description='Case continent'
+    ),
     'city': fields.String(
         readonly=True,
         description='Case city'
@@ -55,10 +59,10 @@ case_list_model = namespace.model('CaseList', {
     )
 })
 
-continent_model = namespace.model('Continent', {
+summary_model = namespace.model('Summary', {
     'continent': fields.String(
         readonly=True,
-        description='Continent'
+        description='Case continent'
     ),
     'confirmed': fields.Integer(
         readonly=True,
@@ -68,14 +72,6 @@ continent_model = namespace.model('Continent', {
         readonly=True,
         description='Deaths cases'
     )
-})
-
-continent_list_model = namespace.model('ContinentList', {
-    'data': fields.Nested(
-        continent_model,
-        description='List of continents',
-        as_list=True
-    ),
 })
 
 @namespace.route('')
@@ -102,7 +98,7 @@ class Case(Resource):
         return namespace.abort(404, 'Case not found')
 
 
-@namespace.route('/<string:country>')
+@namespace.route('/country/<string:country>')
 class CountryCase(Resource):
     '''Get cases by country'''
 
@@ -116,7 +112,7 @@ class CountryCase(Resource):
         return namespace.abort(404, 'Case not found')
 
 
-@namespace.route('/<string:continent>')
+@namespace.route('/continent/<string:continent>')
 class ContinentCases(Resource):
     '''Get cases by continent'''
 
@@ -131,6 +127,6 @@ class CasesSummary(Resource):
     '''Get cases summary'''
 
     @namespace.response(500, 'Internal Server Error')
-    @namespace.marshal_list_with(continent_list_model)
+    @namespace.marshal_list_with(summary_model)
     def get(self):
         return cases_schema.dump(CaseModel.summary()), 200

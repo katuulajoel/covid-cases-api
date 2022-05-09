@@ -8,7 +8,7 @@ from api.db import db, migrate
 from api.ma import ma
 
 app = Flask(__name__)
-flask_config = os.environ.get('FLASK_ENV')
+flask_config = os.environ.get('FLASK_ENV', 'production')
 app.config.from_object(app_config[flask_config])
 
 db.init_app(app)

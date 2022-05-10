@@ -27,9 +27,6 @@ def seed_database():
         with open('static.sample_cases.json') as cases_file:
             data = json.load(cases_file)
 
-    # print(data)
-
-
     my_list = []
     for key in data:
         country_case = data[key]['All']

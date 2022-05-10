@@ -28,10 +28,10 @@ class CaseModel(db.Model):
 
     def __repr__(self):
         return 'CaseModel(country=%s, city=%s, continent=%s, population=%s, deaths=%s, confirmed=%s, life_expectancy=%s, updated_at=%s )'\
-             % (self.country, self.city, self.continent, self.population, self.deaths, self.confirmed, self.life_expectancy, self.updated_at)
+            % (self.country, self.city, self.continent, self.population, self.deaths, self.confirmed, self.life_expectancy, self.updated_at)
 
     def json(self):
-        return {'country': self.country, 'city': self.city, 'continent': self.continent, 'population': self.population,}
+        return {'country': self.country, 'city': self.city, 'continent': self.continent, 'population': self.population, }
 
     @classmethod
     def find_by_country(cls, country) -> "CaseModel":
@@ -50,9 +50,17 @@ class CaseModel(db.Model):
         return cls.query.all()
 
     @classmethod
+    def get_countries(cls) -> List["dict"]:
+        return db.session.query(CaseModel.country).distinct()
+
+    @classmethod
+    def get_continents(cls) -> List["dict"]:
+        return db.session.query(CaseModel.continent).distinct()
+
+    @classmethod
     def summary(cls):
         return db.session.query(
-            CaseModel.continent, 
+            CaseModel.continent,
             db.func.sum(CaseModel.deaths).label('deaths'),
             db.func.sum(CaseModel.confirmed).label('confirmed')).group_by(CaseModel.continent).all()
 

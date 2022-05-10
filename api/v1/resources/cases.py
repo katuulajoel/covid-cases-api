@@ -130,3 +130,22 @@ class CasesSummary(Resource):
     @namespace.marshal_list_with(summary_model)
     def get(self):
         return cases_schema.dump(CaseModel.summary()), 200
+
+@namespace.route('/countries_continents_list')
+class CountriesContinentsList(Resource):
+    '''Get cases summary'''
+
+    @namespace.response(500, 'Internal Server Error')
+    def get(self):
+        countries = cases_schema.dump(CaseModel.get_countries())
+        continents = cases_schema.dump(CaseModel.get_continents())
+        countries_list = []
+        continents_list = []
+        for key in countries:
+            countries_list.append(key['country'])
+        for key in continents:
+            if key['continent']:
+                continents_list.append(key['continent'])
+
+
+        return {'countries': countries_list, 'continents': continents_list}, 200

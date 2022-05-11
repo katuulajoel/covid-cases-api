@@ -1,4 +1,4 @@
-# WeConnect-App
+# Zenysis covid 19 api
 
 Covid 19 create a platform to understand the impact of the pandemic on the world.
 

@@ -34,10 +34,10 @@ Covid 19 create a platform to understand the impact of the pandemic on the world
 ## Setup
 
 * Run `git clone` this repository and `cd` into the project root.
-* Run `mkvirtualenv venv` for Windows or `python3 -m venv ../wc-venv` for Unix/Mac.
-* Run `workon venv` for Windows or `source ../wc-venv/bin/activate` for Unix/Mac.
+* Run `mkvirtualenv venv` for Windows or `python3 -m venv venv` for Unix/Mac.
+* Run `workon venv` for Windows or `source venv/bin/activate` for Unix/Mac.
 * Run `pip install -r requirements.txt`.
-* Run `createdb <weconnect_db>` and `createdb <test_weconnect_db>` on the psql bash terminal.
+* Run `createdb <db_name>` on the psql bash terminal.
 * Run `touch .env` to create a file for storing environment variables. Add the following lines (use `set` for Windows instead of `export`, used here for Unix/Mac) to it:
 
 ```env

@@ -82,7 +82,7 @@ class Cases(Resource):
     @namespace.marshal_list_with(case_list_model)
     def get(self):
         cases = cases_schema.dump(CaseModel.find_all())
-        return {'cases': cases, 'total_records': 10}, 200
+        return {'cases': cases, 'total_records': len(cases)}, 200
 
 @namespace.route('/<int:case_id>')
 class Case(Resource):
@@ -120,7 +120,7 @@ class ContinentCases(Resource):
     @namespace.marshal_list_with(case_list_model)
     def get(self, continent):
         cases = cases_schema.dump(CaseModel.find_by_continent(continent))
-        return {'cases': cases, 'total_records': 10}, 200
+        return {'cases': cases, 'total_records': len(cases)}, 200
 
 @namespace.route('/summary')
 class CasesSummary(Resource):

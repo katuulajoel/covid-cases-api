@@ -24,7 +24,7 @@ def seed_database():
         r = requests.get('https://covid-api.mmediagroup.fr/v1/cases')
         data = json.loads(r.text)
     else:
-        with open('static.sample_cases.json') as cases_file:
+        with open('static/sample_cases.json') as cases_file:
             data = json.load(cases_file)
 
     my_list = []
